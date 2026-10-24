@@ -156,7 +156,9 @@ function select(i){
   const e=ENTRIES[i];
   const lines=e.text.split('\n').map(t=>'* '+t);
   lines.push('\u2014 '+e.by);
-  lastIdx=lines.length-1; full=lines.join('\n'); n=0;
+  lastIdx=lines.length-1;
+  if(e.note){ lines.push(''); e.note.split('\n').forEach(t=>{ t=t.trim(); lines.push(t?'* '+t:''); }); }
+  full=lines.join('\n'); n=0;
   sr.textContent=e.text.replace(/\n/g,' ')+' \u2014 '+e.by+(e.date?' ('+e.date+')':'');
   [...menu.children].forEach((b,j)=>{ if(j===i) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); });
   showMedia(e); extra.innerHTML='';
